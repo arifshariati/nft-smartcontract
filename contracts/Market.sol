@@ -32,6 +32,14 @@ contract Market {
         uint price
     );
 
+    event Sale(
+        uint listingId,
+        address buyer,
+        address token,
+        uint tokenId,
+        uint price
+    );
+
     uint private _listingId = 0;
 
     mapping(uint => Listing) private _listings;
@@ -67,6 +75,14 @@ contract Market {
         IERC721(listing.token).transferFrom(address(this),msg.sender, listing.tokenId);
 
         payable(listing.seller).transfer(listing.price);
+
+        emit Sale(
+            listingId,
+            msg.sender,
+            listing.token,
+            listing.tokenId,
+            listing.price
+        );
 
     }
 
