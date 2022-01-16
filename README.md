@@ -1,6 +1,6 @@
 ## NFT-SMARTCONTRACT
 
-Imagine one want to start their own NFT marketplace. This repo contains basis for NFT marketplace capturing etherium smart contracts. 
+Imagine one want to start their own NFT marketplace. This repo contains basis for NFT marketplace capturing ethereum smart contracts. 
 
 ### Functions 
 
