@@ -69,6 +69,10 @@ contract Market {
 
     }
 
+    function getListing(uint listingId) public view returns (Listing memory) {
+        return _listings[listingId];
+    }
+
     function buyToken(uint listingId) external payable {
 
         Listing storage listing = _listings[listingId];
