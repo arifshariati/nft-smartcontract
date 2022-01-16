@@ -51,6 +51,19 @@ contract Market {
         IERC721(listing.token).transferFrom(address(this),msg.sender, listing.tokenId);
 
         payable(listing.seller).transfer(listing.price);
+
+    }
+
+    function cancel(uint listingId) public {
+
+        Listing storage listing = _listings[listingId];
+
+        require(msg.sender != listing.seller, "Only Seller can cancel listing");
+        require(listing.status == ListingStatus.Active,"Listing is not Active");
+
+        listing.status = ListingStatus.Canceled;
+
+        IERC721(listing.token).transferFrom(address(this),msg.sender, listing.tokenId);
         
     }
 }
