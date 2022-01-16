@@ -40,6 +40,11 @@ contract Market {
         uint price
     );
 
+    event Cancle(
+        uint listingId,
+        address seller
+    );
+
     uint private _listingId = 0;
 
     mapping(uint => Listing) private _listings;
@@ -96,6 +101,11 @@ contract Market {
         listing.status = ListingStatus.Canceled;
 
         IERC721(listing.token).transferFrom(address(this),msg.sender, listing.tokenId);
+
+        emit Cancle(
+            listingId,
+            listing.seller
+        );
 
     }
 }
