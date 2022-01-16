@@ -24,6 +24,14 @@ contract Market {
 
     }
 
+    event Listed(
+        uint listingId,
+        address seller,
+        address token,
+        uint tokenId,
+        uint price
+    );
+
     uint private _listingId = 0;
 
     mapping(uint => Listing) private _listings;
@@ -32,11 +40,19 @@ contract Market {
 
         IERC721(token).transferFrom(msg.sender, address(this), tokenId);
 
-        Listing memory listing = Listing(ListingStatus.Active,msg.sender,token, tokenId, price);
+        Listing memory listing = Listing(
+            ListingStatus.Active,
+            msg.sender,
+            token, 
+            tokenId, 
+            price
+        );
 
         _listingId++;
 
         _listings[_listingId] = listing;
+
+        emit Listed(_listingId, msg.sender, token, tokenId, price);
 
     }
 
@@ -64,7 +80,7 @@ contract Market {
         listing.status = ListingStatus.Canceled;
 
         IERC721(listing.token).transferFrom(address(this),msg.sender, listing.tokenId);
-        
+
     }
 }
 
